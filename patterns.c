@@ -23,8 +23,8 @@ void load_foreground_pattern(const pattern_t pattern, const uint8_t pmfa) {
 void load_patterns(void) {
     load_background_pattern(pattern_black, pmba_black);
     load_background_pattern(pattern_white, pmba_white);
-    load_foreground_pattern(pattern_white, pmfa_tank_up);
-    load_foreground_pattern(pattern_white, pmfa_tank_right);
-    load_foreground_pattern(pattern_white, pmfa_tank_upright);
+    load_foreground_pattern(pattern_tank_up, pmfa_tank_up);
+    load_foreground_pattern(pattern_tank_right, pmfa_tank_right);
+    load_foreground_pattern(pattern_tank_upright, pmfa_tank_upright);
     load_foreground_pattern(pattern_projectile, pmfa_projectile);
 }
