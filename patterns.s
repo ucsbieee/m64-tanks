@@ -24,3 +24,7 @@ _pattern_tank_right:
 .export _pattern_tank_upright
 _pattern_tank_upright:
 .incbin "patterns/tank/upright.pat"
+
+.export _pattern_projectile
+_pattern_projectile:
+.incbin "patterns/projectile.pat"
