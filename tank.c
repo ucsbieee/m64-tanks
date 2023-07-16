@@ -1,6 +1,40 @@
 #include <vram.h>
-#include <Q9_6.h>
 #include <screen.h>
 #include "tank.h"
+#include "controller.h"
+#include "patterns.h"
 
 
+void tank_draw(const tank_t * const p){
+    OBM[p->object].x = ( p->xp );
+    OBM[p->object].y = ( p->yp );
+    OBM[p->object].color = p->color;
+    OBM[p->object].pattern_config = p->pmfa;
+}
+
+void tank_advance(tank_t * const p){
+    if(p->player & CONTROLLER_UP_MASK){
+        p->yp -= tank_speed;
+        if(p->player & CONTROLLER_RIGHT_MASK){
+            p->xp += tank_speed;
+            p->pmfa = pmfa_tank_upright;
+        }else if(p->player & CONTROLLER_LEFT_MASK){
+            p->xp -= tank_speed;
+            p->pmfa = pmfa_tank_upright | HFLIP_MASK;
+        }else{
+            p->pmfa = pmfa_tank_up;
+        }
+    }
+    else if(p->player & CONTROLLER_DOWN_MASK){
+        p->yp += tank_speed;
+        if(p->player & CONTROLLER_RIGHT_MASK){
+            p->xp += tank_speed;
+            p->pmfa = pmfa_tank_upright | VFLIP_MASK;
+        }else if(p->player & CONTROLLER_LEFT_MASK){
+            p->xp -= tank_speed;
+            p->pmfa = pmfa_tank_upright | VFLIP_MASK | HFLIP_MASK;
+        }else{
+            p->pmfa = pmfa_tank_up | VFLIP_MASK;
+        }
+    }
+}
