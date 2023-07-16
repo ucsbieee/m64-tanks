@@ -42,4 +42,12 @@ void tank_advance(tank_t * const p){
             p->pmfa = pmfa_tank_up | VFLIP_MASK;
         }
     }
+    else if(controller_value & CONTROLLER_LEFT_MASK){
+        p->xp -= tank_speed;
+        p->pmfa = pmfa_tank_right | HFLIP_MASK;
+    }
+    else if(controller_value & CONTROLLER_RIGHT_MASK){
+        p->xp += tank_speed;
+        p->pmfa = pmfa_tank_right;
+    }
 }
