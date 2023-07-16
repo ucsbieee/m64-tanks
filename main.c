@@ -17,12 +17,15 @@
 #include <controller.h>
 #include <screen.h>
 
+#include "patterns.h"
+#include "levels.h"
 
 // run once on startup
 void reset(void) {
-    TXBL[0][0] = 'h' | COLOR_SELECT_MASK;
-
- }
+    load_patterns();
+    level_draw(level_1);
+    background_palette = WHITE_C1_MASK | WHITE_C0_MASK;
+}
 
 // run 60 times a second
 void do_logic(void) { }

@@ -1,12 +1,15 @@
 
 # Define a list of all C and Assemnbly source files
-CXX_SRC = main.c patterns.c
-ASM_SRC = patterns.s
-HEADERS = patterns.h
+CXX_SRC = main.c patterns.c levels.c
+ASM_SRC = patterns.s levels.s
+HEADERS = patterns.h levels.h
 
 
 # List of PNG images used for patterns
 IMAGES = $(shell find patterns -name "*.png")
+
+# List of levels
+LEVELS = $(shell find levels -name "*.lvl")
 
 
 # Where the intermediate-stage Assembly/object files will be saved
@@ -37,7 +40,7 @@ CXX_BIN = $(addprefix ${BUILD_DIR}/,$(CXX_SRC:.c=.c.o))
 ASM_BIN = $(addprefix ${BUILD_DIR}/,$(ASM_SRC:.s=.s.o)) ${BUILD_DIR}/backend/game_header.s.o
 
 RESOURCE_DIR = ${BUILD_DIR}/resources
-RESOURCES = $(addprefix ${RESOURCE_DIR}/,$(IMAGES:.png=.pat))
+RESOURCES = $(addprefix ${RESOURCE_DIR}/,$(IMAGES:.png=.pat)) $(addprefix ${RESOURCE_DIR}/,$(LEVELS:.lvl=.tiles))
 
 LIB_FILES = $(shell find backend/lib -type f)
 
@@ -58,7 +61,7 @@ all: clean verify dump
 
 dump: ${DUMP_FILES}
 
-images: ${RESOURCES}
+resources: ${RESOURCES}
 
 # Split the unified memory map into constituent memory sections
 ${DUMP_DIR}/firmware.bin: ${OUTPUT}
@@ -76,6 +79,11 @@ ${DUMP_DIR}/vectors.bin: ${OUTPUT}
 ${RESOURCE_DIR}/%.pat: %.png
 	@mkdir -p $(dir $@)
 	@${PYTHON} backend/pattern_converter.py $< $@
+	@echo "Created \"$@\" from \"$<\""
+
+${RESOURCE_DIR}/%.tiles: %.lvl
+	@mkdir -p $(dir $@)
+	@${PYTHON} backend/level_converter.py $< $@
 	@echo "Created \"$@\" from \"$<\""
 
 # Verify newly generated firmware code matches the starter code

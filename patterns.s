@@ -3,6 +3,10 @@
 
 
 
+.export _pattern_black
+_pattern_black:
+.incbin "patterns/black.pat"
+
 .export _pattern_white
 _pattern_white:
 .incbin "patterns/white.pat"
