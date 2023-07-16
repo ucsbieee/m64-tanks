@@ -19,7 +19,10 @@
 
 
 // run once on startup
-void reset(void) { }
+void reset(void) {
+    TXBL[0][0] = 'h' | COLOR_SELECT_MASK;
+
+ }
 
 // run 60 times a second
 void do_logic(void) { }
