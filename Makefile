@@ -1,8 +1,8 @@
 
 # Define a list of all C and Assemnbly source files
-CXX_SRC = main.c patterns.c levels.c projectile.c tank.c
+CXX_SRC = main.c patterns.c levels.c projectile.c tank.c obma_stack.c
 ASM_SRC = patterns.s levels.s
-HEADERS = patterns.h levels.h projectile.h tank.h
+HEADERS = patterns.h levels.h projectile.h tank.h obma_stack.h
 
 
 # List of PNG images used for patterns
