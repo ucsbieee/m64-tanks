@@ -9,7 +9,8 @@
 #pragma code-name ("CODE")
 #pragma bss-name ("BSS")
 
-#include <int.h>
+#include <int.h>git pull
+
 #include <vram.h>
 #include <stop.h>
 #include <Q9_6.h>
@@ -23,9 +24,10 @@
 tank_t t1;
 tank_t t2;
 
+// level_t level = level_1;
+
 // run once on startup
 void reset(void) {
-    uint8_t i, j;
     load_patterns();
     level_draw(level_1);
     background_palette = WHITE_C1_MASK | WHITE_C0_MASK;
@@ -57,10 +59,13 @@ void reset(void) {
 void do_logic(void) {
     tank_advance(&t1);
     tank_advance(&t2);
+    collision_detection(&t1, &level_1);
+    collision_detection(&t2, &level_1);
 }
 
 // run after do_logic and once gpu is idle
 void fill_vram(void) {
+    //Should do collision detection here
     tank_draw(&t1);
     tank_draw(&t2);
 }
